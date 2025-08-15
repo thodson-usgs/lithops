@@ -349,6 +349,8 @@ class AWSBatchBackend:
                     }
                 ]
             }
+            ,
+            tags=self._build_tags(runtime_name),
         )
 
         logger.debug('Waiting for get-metadata job to finish')
@@ -571,6 +573,8 @@ class AWSBatchBackend:
                         }
                     ]
                 }
+                ,
+                tags=self._build_tags(runtime_name),
             )
         else:
             self.batch_client.submit_job(
@@ -589,6 +593,8 @@ class AWSBatchBackend:
                         }
                     ]
                 }
+                ,
+                tags=self._build_tags(runtime_name),
             )
 
     def get_runtime_key(self, runtime_name, runtime_memory, version=__version__):
@@ -612,3 +618,17 @@ class AWSBatchBackend:
         }
 
         return runtime_info
+
+    def _build_tags(self, runtime_name=None):
+        """Build tags dict for AWS Batch submit_job calls.
+
+        Merges default runtime and lithops tags with user-provided tags from config.
+        """
+        tags = {'lithops_version': __version__}
+        if runtime_name:
+            tags['runtime_name'] = runtime_name
+
+        user_tags = self.aws_batch_config.get('user_tags') or {}
+        # user_tags expected to be a dict of key:value pairs
+        tags.update(user_tags)
+        return tags

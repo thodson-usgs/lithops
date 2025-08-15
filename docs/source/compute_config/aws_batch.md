@@ -133,6 +133,7 @@ In summary, you can use one of the following settings:
 | aws_batch  | service_role     | | no | Service role for AWS Batch. Leave empty to use a service-linked execution role. More info [here](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html) |
 | aws_batch  | env_max_cpus     | 10 | no | Maximum total CPUs of the compute environment  |
 | aws_batch  | env_type         | FARGATE_SPOT | no | Compute environment type, one of: `["EC2", "SPOT", "FARGATE", "FARGATE_SPOT"]` |
+| aws_batch  | user_tags        | {} | no | List of {name: ..., value: ...} pairs for AWS Batch job tags (see AWS Lambda `user_tags` example) |
 
 
 ## Test Lithops

@@ -41,7 +41,8 @@ DEFAULT_CONFIG_KEYS = {
     'env_max_cpus': 10,
     'env_type': 'FARGATE_SPOT',
     'assign_public_ip': True,
-    'subnets': []
+    'subnets': [],
+    'user_tags': {},
 }
 
 REQ_PARAMS = ('execution_role', 'security_groups')
